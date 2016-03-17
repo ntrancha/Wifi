@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 07:29:18 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 04:37:45 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/17 06:17:13 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,50 @@ void    ft_putnchar(char *c, int n)
         ft_putstr(c);
 }
 
+void    update_power(t_database *database)
+{
+    char    *date;
+    char    *tmp;
+    t_station   *station;
+    t_client    *client;
+
+    station = database->stations;
+    client = database->clients;
+    tmp = get_date(database);
+    date = ft_strsub(tmp, 0, 11);
+    while (station)
+    {
+        if (ft_strcchr(station->last, date) == 0)
+            station->power = ft_strdup("-1");
+        station = station->next;
+    }
+    while (client)
+    {
+        if (ft_strcchr(client->last, date) == 0)
+            client->power = ft_strdup("-1");
+        client = client->next;
+    }
+}
+
 void    clean_database(t_database *database)
 {
     clean_doublon_station(database);
+    clean_doublon_station(database);
+    clean_doublon_station(database);
+    clean_doublon_station(database);
     clean_doublon_station_unknow(database);
-    clean_doublon_client(database);
+    clean_doublon_station_unknow(database);
+    clean_doublon_station_unknow(database);
+    clean_doublon_station_unknow(database);
     clean_hotspot(database);
     show_essid(database);
+    show_essid(database);
     clean_hotspot(database);   
+    clean_doublon_client(database);
+    clean_doublon_client(database);
+    clean_doublon_client(database);
+    clean_doublon_client(database);
+    update_power(database);
 }
 
 void    show_power(char *power);
@@ -102,25 +138,25 @@ void    show_power(char *power)
     po = ft_atoi(power) * -1;
     if (po > 9 && po < 50)
         ft_putstr("\033[1;32m████████\033[0m");
-    if (po > 49 && po < 55)
+    else if (po > 49 && po < 55)
         ft_putstr("\033[1;32m███████▓\033[0m");
-    if (po > 54 && po < 60)
+    else if (po > 54 && po < 60)
         ft_putstr("\033[1;32m██████▓▒\033[0m");
-    if (po > 59 && po < 65)
+    else if (po > 59 && po < 65)
         ft_putstr("\033[1;32m█████▓▒░\033[0m");
-    if (po > 64 && po < 70)
+    else if (po > 64 && po < 70)
         ft_putstr("\033[1;32m████▓▒░░\033[0m");
-    if (po > 69 && po < 75)
+    else if (po > 69 && po < 75)
         ft_putstr("\033[1;32m███▓▒░░░\033[0m");
-    if (po > 74 && po < 80)
+    else if (po > 74 && po < 80)
         ft_putstr("\033[1;32m██▓▒░░░░\033[0m");
-    if (po > 79 && po < 85)
+    else if (po > 79 && po < 85)
         ft_putstr("\033[1;32m█▓▒░░░░░\033[0m");
-    if (po > 84 && po < 90)
+    else if (po > 84 && po < 90)
         ft_putstr("\033[1;32m▓▒░░░░░░\033[0m");
-    if (po < 10 && po > 0)
+    else if (po < 10 && po > 0)
         ft_putstr("\033[1;33m░░░░░░░░\033[0m");
-    if (po < 1)
+    else
         ft_putstr("\033[1;31m░░░░░░░░\033[0m");
 }
 
@@ -212,10 +248,11 @@ int     main(int argc, char **argv)
 
     database = parse_wifi("cap");
     clean_database(database);
-    ft_putendl(get_date(database));
     sort_client_power(database, 1);
     sort_station_power(database, 1);
     show_database(database);
+    /*sort_client_mac(database, 1);*/
     /*display_data(database);*/
+    /*ft_putendl(get_date(database));*/
     return (0);
 }

@@ -6,66 +6,12 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 21:48:20 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 03:36:21 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/17 20:13:58 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/includes/libft.h"
 #include "parse.h"
-
-t_database      *database_init(void)
-{
-    t_database  *database;
-
-    database = ft_memalloc(sizeof(t_database));
-    if (!database)
-        return (NULL);
-    database->stations = NULL;
-    database->clients = NULL;
-    return (database);
-}
-
-t_client        *client_new(t_database *data)
-{
-    t_client    *new;
-    t_client    *old;
-
-    new = ft_memalloc(sizeof(t_client));
-    new->next = NULL;
-    if (!data->clients)
-    {
-        data->clients = new;
-    }
-    else
-    {
-        old = data->clients;
-        while (old && old->next)
-            old = old->next;
-        old->next = new;
-    }
-    return (new);
-}
-
-t_station       *station_new(t_database *data)
-{
-    t_station   *new;
-    t_station   *old;
-
-    new = ft_memalloc(sizeof(t_station));
-    new->next = NULL;
-    if (!data->stations)
-    {
-        data->stations = new;
-    }
-    else
-    {
-        old = data->stations;
-        while (old && old->next)
-            old = old->next;
-        old->next = new;
-    }
-    return (new);
-}
 
 int     point_csv(char *file)
 {
@@ -214,6 +160,7 @@ void        parse_client(char *line, t_database *data)
             client->probes = NULL;
     }
 }
+
 
 void            parse_station(char *line, t_database *data)
 {

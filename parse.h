@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 21:50:43 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 03:00:27 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/17 20:26:01 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ typedef struct  s_database
     t_station   *stations;
     t_client    *clients;
 }               t_database;
+
+void            delete_database(t_database *data);
+void            delete_stations(t_database *data);
+void            delete_station(t_station *station);
+void            delete_clients(t_database *data);
+void            delete_client(t_client *client);
+
 
 t_database      *database_init(void);
 t_client        *client_new(t_database *data);

@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 21:56:51 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 01:12:41 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/17 06:06:16 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void            sort_station_essid(t_database *database, int sort)
 
     station = database->stations;
     test = 0;
-    while (station && station->next && !test)
+    while (station && station->next)
     {
         if (station->essid && station->next->essid)
         {
@@ -91,7 +91,7 @@ void            sort_station_last(t_database *database, int sort)
 
     station = database->stations;
     test = 0;
-    while (station && station->next && !test)
+    while (station && station->next)
     {
         if (station->last && station->next->last)
         {
@@ -120,7 +120,7 @@ void            sort_station_first(t_database *database, int sort)
 
     station = database->stations;
     test = 0;
-    while (station && station->next && !test)
+    while (station && station->next)
     {
         if (station->first && station->next->first)
         {
@@ -149,7 +149,7 @@ void            sort_station_power(t_database *database, int sort)
 
     station = database->stations;
     test = 0;
-    while (station && station->next && !test)
+    while (station && station->next)
     {
         if (station->power && station->next->power)
         {
@@ -178,7 +178,7 @@ void            sort_station_bssid(t_database *database, int sort)
 
     station = database->stations;
     test = 0;
-    while (station && station->next && !test)
+    while (station && station->next)
     {
         if (station->bssid && station->next->bssid)
         {
@@ -248,7 +248,7 @@ void            sort_client_mac(t_database *database, int sort)
 
     station = database->clients;
     test = 0;
-    while (station && station->next && !test)
+    while (station && station->next)
     {
         if (station->mac && station->next->mac)
         {
@@ -277,7 +277,7 @@ void            sort_client_first(t_database *database, int sort)
 
     station = database->clients;
     test = 0;
-    while (station && station->next && !test)
+    while (station && station->next)
     {
         if (station->first && station->next->first)
         {
@@ -306,7 +306,7 @@ void            sort_client_power(t_database *database, int sort)
 
     station = database->clients;
     test = 0;
-    while (station && station->next && !test)
+    while (station && station->next)
     {
         if (station->power && station->next->power)
         {
@@ -335,7 +335,7 @@ void            sort_client_bssid(t_database *database, int sort)
 
     station = database->clients;
     test = 0;
-    while (station && station->next && !test)
+    while (station && station->next)
     {
         if (station->bssid && station->next->bssid)
         {
@@ -364,7 +364,7 @@ void            sort_client_last(t_database *database, int sort)
 
     station = database->clients;
     test = 0;
-    while (station && station->next && !test)
+    while (station && station->next)
     {
         if (station->last && station->next->last)
         {
