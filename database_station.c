@@ -6,12 +6,26 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 20:29:30 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 20:31:28 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/17 22:22:17 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/includes/libft.h"
 #include "parse.h"
+
+t_station        *find_station_essid(t_database *data, char *essid)
+{
+    t_station    *stations;
+
+    stations = data->stations;
+    while (stations)
+    {
+        if (ft_strcmp(stations->essid, essid) == 0)
+            return (stations);
+        stations = stations->next;
+    }
+    return (NULL);
+}
 
 t_station        *find_station_mac(t_database *data, char *bssid)
 {
@@ -41,7 +55,7 @@ void            update_station(t_station *new, t_station *old)
 {
     char        *tmp;
 
-    if (ft_strcmp(new->bssid, old->bssid) == 0)
+    if (ft_strcmp(new->bssid, old->bssid) == 0 || ft_strcmp(new->essid, old->essid) == 0)
     {
         if (ft_strcmp(new->first, old->first) < 0)
         {
@@ -102,9 +116,38 @@ void            add_station(t_database *data, t_station *new)
     else
     {
         if (!(stations = find_station_mac(data, new->bssid)))
-            add_station_end(data, new);
-        else
-            update_station(new, stations);
+        {
+            if (ft_strcchr(new->bssid, "xx:xx") != 0 && (stations = find_station_essid(data, new->essid)))
+            {
+                if (ft_strcchr(stations->essid, "???") != 0)
+                    add_station_end(data, new);  
+                else
+                {
+                    update_station(new, stations);  
+                    delete_station(new);
+                }
+            }
+            else 
+                add_station_end(data, new);
+        }
+        else 
+        {
+            if (ft_strcmp(new->bssid, "xx:xx:xx:xx:xx:xx") == 0)
+            {
+                if ((stations = find_station_essid(data, new->essid)))
+                {
+                    update_station(new, stations);  
+                    delete_station(new);
+                }
+                else
+                    add_station_end(data, new);  
+            }
+            else
+            {
+                update_station(new, stations);  
+                delete_station(new);
+            }
+        }
     }
 }
 

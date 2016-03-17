@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 20:27:40 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 20:43:45 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/17 21:56:02 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,14 @@ void            add_client(t_database *data, t_client *new)
         if (!(clients = find_client_mac(data, new->mac)))
             add_client_end(data, new);
         else
+        {
             update_client(new, clients);
+            delete_client(new);
+        }
     }
 }
 
-t_client        *new_client(t_database *data)
+t_client        *new_client(void)
 {
     t_client    *new;
 

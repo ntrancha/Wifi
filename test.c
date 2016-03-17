@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 07:29:18 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 06:17:13 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/17 22:22:17 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,12 +247,14 @@ int     main(int argc, char **argv)
     t_database  *database;
 
     database = parse_wifi("cap");
-    clean_database(database);
-    sort_client_power(database, 1);
-    sort_station_power(database, 1);
-    show_database(database);
+    //clean_database(database);
+    //sort_client_power(database, 1);
+    //sort_station_power(database, 1);
+    //show_database(database);
     /*sort_client_mac(database, 1);*/
-    /*display_data(database);*/
+    sort_station_essid(database, 1);
+    display_data(database);
+    delete_database(database);
     /*ft_putendl(get_date(database));*/
     return (0);
 }

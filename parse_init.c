@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 20:39:03 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 20:54:01 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/17 21:25:10 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void    parse_csv(char **file_content, t_database *data)
     {
         if (status == 1 && ft_strlen(file_content[line]) > 50)
             if (ft_strcchr(file_content[line], "Station MAC, First time seen,") == 0)
-                parse_station(file_content[line], data);
+                parse_stations(file_content[line], data);
         if (status == 2 && ft_strlen(file_content[line]) > 50)
-            parse_client(file_content[line], data);
+            parse_clients(file_content[line], data);
         if (ft_strcchr(file_content[line], "BSSID, First time seen") == 1)
             status = 1;
         if (ft_strcchr(file_content[line], "Station MAC, First time seen,") == 1)

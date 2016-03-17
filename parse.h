@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 21:50:43 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 20:47:50 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/17 21:46:56 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,32 @@ t_database      *database_init(void);
 t_client        *client_new(t_database *data);
 t_station       *station_new(t_database *data);
 ////////////////////////////////////////////////////////////////
-t_client        *new_client(t_database *data);
-void            add_client(t_database *data, t_client *new);
+t_client        *new_client(void);
+void            add_client(t_database *data, t_client *station);
 ////////////////////////////////////////////////////////////////
-void            add_station(t_database *data, t_station *new);
+void            add_station(t_database *data, t_station *client);
 t_station       *new_station(void);
-////////////////////////////////////////////////////////////////
-void            delete_database(t_database *data);
-void            delete_stations(t_database *data);
-void            delete_clients(t_database *data);
-void            delete_station(t_station *station);
-void            delete_client(t_client *client);
 ////////////////////////////////////////////////////////////////
 int             point_csv(char *file);
 void            get_csv(char *file, t_database *data);
 void            parse_csv(char **file_content, t_database *data);
 t_database      *parse_wifi(char *str);
+/////////////////////////////////////////////////////////////////
+void            sort_station_bssid(t_database *database, int sort);
+void            sort_station_essid(t_database *database, int sort);
+void            sort_station_last(t_database *database, int sort);
+void            sort_station_first(t_database *database, int sort);
+void            sort_station_power(t_database *database, int sort);
+////////////////////////////////////////////////////////////////
+void            sort_client_mac(t_database *database, int sort);
+void            sort_client_first(t_database *database, int sort);
+void            sort_client_last(t_database *database, int sort);
+void            sort_client_power(t_database *database, int sort);
+void            sort_client_bssid(t_database *database, int sort);
+////////////////////////////////////////////////////////////////
+void            parse_stations(char *line, t_database *data);
+////////////////////////////////////////////////////////////////
+void            parse_clients(char *line, t_database *data);
 ////////////////////////////////////////////////////////////////
 void            clean_string(char **str);
 void            clean_data(t_database *data);
@@ -87,17 +97,6 @@ void            new_probes(char *line, t_database *data);
 void            parse_client(char *line, t_database *data);
 void            parse_station(char *line, t_database *data);
 void            display_data(t_database *data);
-void            sort_station_bssid(t_database *database, int sort);
-void            sort_station_essid(t_database *database, int sort);
-void            sort_station_last(t_database *database, int sort);
-void            sort_station_first(t_database *database, int sort);
-void            sort_station_power(t_database *database, int sort);
-void            sort_client_mac(t_database *database, int sort);
-void            sort_client_first(t_database *database, int sort);
-void            sort_client_last(t_database *database, int sort);
-void            sort_client_power(t_database *database, int sort);
-void            sort_client_bssid(t_database *database, int sort);
-
 char            *get_date(t_database *data);
 void            show_essid(t_database *data);
 void            add_essid(t_database *data, char *bssid, char *essid);
