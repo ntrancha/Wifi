@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 20:29:30 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 22:22:17 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/18 01:52:59 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,17 @@ void            update_station(t_station *new, t_station *old)
 
     if (ft_strcmp(new->bssid, old->bssid) == 0 || ft_strcmp(new->essid, old->essid) == 0)
     {
-        if (ft_strcmp(new->first, old->first) < 0)
+        if (ft_strcmp(new->first, "XXXX-XX-XX XX:XX:XX") != 0 && ft_strcmp(new->first, old->first) < 0)
         {
             ft_strdel(&old->first);
             old->first = ft_strdup(new->first);
         }
-        if (ft_strcmp(new->last, old->last) > 0)
+        if (ft_strcmp(new->last, "XXXX-XX-XX XX:XX:XX") != 0 && ft_strcmp(new->last, old->last) > 0)
         {
             ft_strdel(&old->last);
             old->last = ft_strdup(new->last);
         }
-        if (!old->power && new->power && ft_atoi(new->power) < ft_atoi(old->power))
+        if (ft_strcmp(new->power, "X") != 0 && !old->power && new->power && ft_atoi(new->power) < ft_atoi(old->power))
         {
             ft_strdel(&old->power);
             old->power = ft_strdup(new->power);
@@ -88,12 +88,12 @@ void            update_station(t_station *new, t_station *old)
             ft_strdel(&new->iv);
             old->iv = tmp;
         }
-        if (!(old->chan) || ft_strcmp(old->ip, "???") == 0 || ft_strcmp(old->ip, "") == 0)
+        if (ft_strcmp(new->chan, "0") != 0 && !(old->chan) || ft_strcmp(old->ip, "???") == 0 || ft_strcmp(old->ip, "") == 0)
         {
             ft_strdel(&old->chan);
             old->chan = ft_strdup(new->chan);
         }
-        if (!(old->cipher) || ft_strcmp(old->cipher, "???") == 0 || ft_strcmp(old->cipher, "") == 0)
+        if (ft_strcmp(new->cipher, "0") != 0 && !(old->cipher) || ft_strcmp(old->cipher, "???") == 0 || ft_strcmp(old->cipher, "") == 0)
         {
             ft_strdel(&old->cipher);
             old->cipher = ft_strdup(new->cipher);
@@ -144,8 +144,21 @@ void            add_station(t_database *data, t_station *new)
             }
             else
             {
-                update_station(new, stations);  
-                delete_station(new);
+                if (ft_strcmp(new->essid, "???") == 0 || ft_strcmp(new->essid, "XXX") == 0)
+                {
+                    update_station(new, stations);  
+                    delete_station(new);
+                }
+                else
+                {
+                    if (ft_strcmp(new->essid, stations->essid) != 0)
+                        add_station_end(data, new);  
+                    else
+                    {
+                        update_station(new, stations);  
+                        delete_station(new);
+                    }
+                }
             }
         }
     }
