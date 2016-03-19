@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 20:47:56 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 20:48:59 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/18 12:59:04 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void            reverse_client(t_database *base, t_client *one, t_client *two)
 void            sort_client_mac(t_database *database, int sort)
 {
     t_client   *station;
-    t_client   *tmp;
     int         test;
 
     station = database->clients;
@@ -86,7 +85,6 @@ void            sort_client_mac(t_database *database, int sort)
 void            sort_client_first(t_database *database, int sort)
 {
     t_client   *station;
-    t_client   *tmp;
     int         test;
 
     station = database->clients;
@@ -115,7 +113,6 @@ void            sort_client_first(t_database *database, int sort)
 void            sort_client_power(t_database *database, int sort)
 {
     t_client   *station;
-    t_client   *tmp;
     int         test;
 
     station = database->clients;
@@ -144,7 +141,6 @@ void            sort_client_power(t_database *database, int sort)
 void            sort_client_bssid(t_database *database, int sort)
 {
     t_client   *station;
-    t_client   *tmp;
     int         test;
 
     station = database->clients;
@@ -173,7 +169,6 @@ void            sort_client_bssid(t_database *database, int sort)
 void            sort_client_last(t_database *database, int sort)
 {
     t_client   *station;
-    t_client   *tmp;
     int         test;
 
     station = database->clients;

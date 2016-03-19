@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 21:48:20 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/18 01:25:46 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/18 13:03:01 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void            clean_string(char **str)
 void            clean_data(t_database *data)
 {
     t_station   *station;
-    t_client    *client;
 
     station = data->stations;
     while (station)

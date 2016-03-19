@@ -6,12 +6,13 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 20:13:25 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 21:46:55 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/19 01:20:32 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/includes/libft.h"
 #include "parse.h"
+#include "vendor.h"
 
 t_database      *database_init(void)
 {
@@ -22,6 +23,7 @@ t_database      *database_init(void)
         return (NULL);
     database->stations = NULL;
     database->clients = NULL;
+    database->vendors = data_vendor();
     return (database);
 }
 

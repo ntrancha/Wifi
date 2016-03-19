@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 20:49:21 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 20:49:43 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/18 13:02:29 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void            reverse_station(t_database *base, t_station *one, t_station *two
 void            sort_station_essid(t_database *database, int sort)
 {
     t_station   *station;
-    t_station   *tmp;
     int         test;
 
     station = database->stations;
@@ -86,7 +85,6 @@ void            sort_station_essid(t_database *database, int sort)
 void            sort_station_last(t_database *database, int sort)
 {
     t_station   *station;
-    t_station   *tmp;
     int         test;
 
     station = database->stations;
@@ -115,7 +113,6 @@ void            sort_station_last(t_database *database, int sort)
 void            sort_station_first(t_database *database, int sort)
 {
     t_station   *station;
-    t_station   *tmp;
     int         test;
 
     station = database->stations;
@@ -144,7 +141,6 @@ void            sort_station_first(t_database *database, int sort)
 void            sort_station_power(t_database *database, int sort)
 {
     t_station   *station;
-    t_station   *tmp;
     int         test;
 
     station = database->stations;
@@ -173,7 +169,6 @@ void            sort_station_power(t_database *database, int sort)
 void            sort_station_bssid(t_database *database, int sort)
 {
     t_station   *station;
-    t_station   *tmp;
     int         test;
 
     station = database->stations;

@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 02:57:40 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 03:02:46 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/18 12:58:07 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,4 +222,5 @@ char    *get_date(t_database *data)
             return (ft_strdup(station->last));
         station = station->next;
     }
+    return (NULL);
 }

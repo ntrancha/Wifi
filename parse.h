@@ -6,12 +6,13 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 21:50:43 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 21:46:56 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/18 23:52:37 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
+# include "vendor.h"
 
 typedef struct s_client t_client;
 typedef struct s_station t_station;
@@ -50,6 +51,7 @@ typedef struct  s_database
 {
     t_station   *stations;
     t_client    *clients;
+    t_vendors   *vendors;
 }               t_database;
 
 ////////////////////////////////////////////////////////////////

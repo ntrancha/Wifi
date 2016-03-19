@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 20:29:30 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/18 01:52:59 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/19 02:18:05 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,12 @@ void            update_station(t_station *new, t_station *old)
             ft_strdel(&new->iv);
             old->iv = tmp;
         }
-        if (ft_strcmp(new->chan, "0") != 0 && !(old->chan) || ft_strcmp(old->ip, "???") == 0 || ft_strcmp(old->ip, "") == 0)
+        if ((ft_strcmp(new->chan, "0") != 0 && !(old->chan)) || (ft_strcmp(old->ip, "???") == 0 || ft_strcmp(old->ip, "") == 0))
         {
             ft_strdel(&old->chan);
             old->chan = ft_strdup(new->chan);
         }
-        if (ft_strcmp(new->cipher, "0") != 0 && !(old->cipher) || ft_strcmp(old->cipher, "???") == 0 || ft_strcmp(old->cipher, "") == 0)
+        if ((ft_strcmp(new->cipher, "0") != 0 && !(old->cipher)) || (ft_strcmp(old->cipher, "???") == 0 || ft_strcmp(old->cipher, "") == 0))
         {
             ft_strdel(&old->cipher);
             old->cipher = ft_strdup(new->cipher);

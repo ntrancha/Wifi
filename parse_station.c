@@ -6,7 +6,7 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 20:59:04 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 21:11:08 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/19 02:10:57 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void            parse_stations(char *line, t_database *data)
 {
     char        **split;
+    char        *tmp;
     t_station   *station;
 
     station = new_station();
@@ -40,7 +41,16 @@ void            parse_stations(char *line, t_database *data)
         else
             station->auth = ft_strdup("XXX");
         if (split[6])                                    // Power
-            station->power = ft_strcleanfront(split[8], ' ');
+        {
+            tmp = ft_strcleanfront(split[8], ' ');
+            if (ft_strcmp(tmp, "-1") == 0)
+            {
+                station->power = ft_strdup("-100");
+                ft_strdel(&tmp);
+            }
+            else
+                station->power = tmp;
+        }
         else
             station->power = ft_strdup("");
         if (split[9])                                    // beacons

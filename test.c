@@ -6,11 +6,12 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 07:29:18 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/18 03:21:09 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/19 02:18:04 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "vendor.h"
 #include "libft/includes/libft.h"
 
 void    ft_putnchar(char *c, int n)
@@ -33,7 +34,7 @@ void    update_power(t_database *database)
     while (station)
     {
         if (ft_strcchr(station->last, date) == 0)
-            station->power = ft_strdup("0");
+            station->power = ft_strdup("-1000");
         station = station->next;
     }
     while (client)
@@ -54,11 +55,9 @@ void    clean_database(t_database *database)
 
 void    show_power(char *power);
 
-void    show_client(t_client *client)
+void    show_client(t_database *data, t_client *client)
 {
     char    *file;
-    char    *cmd;
-    char    *mac;
     char    *tmp;
 
     ft_putstr("  ║ ");
@@ -71,21 +70,19 @@ void    show_client(t_client *client)
     ft_putspace(8 - ft_strlen(client->packets));
     if (client->mac)
     {
-        mac = ft_strsub(client->mac, 0, 8);
-        cmd = ft_strmjoin("./Mac_vendor.sh ", mac," > .vendor");
-        system(cmd);
-        file = ft_get_file(".vendor");
+        file = vendor_get(data->vendors, client->mac);
         if (file && ft_strlen(file) > 2)
         {
-            tmp = ft_strsub(file, 0, ft_strlen(file) - 1);
-            ft_putspace(12);
+            tmp = ft_strdup(file);
+            ft_putspace(11);
+            ft_putstr("\033[35m");
             ft_putstr(tmp);
+            ft_putstr("\033[0m");
             ft_putspace(35 - ft_strlen(file));
             ft_strdelt(&tmp, &file);
         }
         else
             ft_putspace(47);
-        ft_strdelt(&cmd, &mac);
     }
     else
         ft_putspace(47);
@@ -110,16 +107,16 @@ void    show_clients(t_database *data, char *essid, char *bssid)
     while (client && max)
     {
         if (ft_strcmp(client->bssid, bssid) == 0 && max--)
-            show_client(client);
+            show_client(data, client);
         else if (client->probes && ft_strcchr(client->probes, ",") == 0)
         {
             if (ft_strcmp(client->probes, essid) == 0 && max--)
-                show_client(client);
+                show_client(data, client);
         }
         else if (client->probes && ft_strcchr(client->probes, ",") == 1)
         {
             if (ft_strcchr(client->probes, essid) != 0 && max--)
-                show_client(client);
+                show_client(data, client);
         }
         client = client->next;
     }
@@ -128,9 +125,7 @@ void    show_clients(t_database *data, char *essid, char *bssid)
 int     have_clients(t_database *data, char *essid, char *bssid)
 {
     t_client    *client;
-    int         ret;
 
-    ret = 0;
     client = data->clients;
     while (client)
     {
@@ -176,7 +171,7 @@ void    show_power(char *power)
         ft_putstr("\033[1;32m█▓▒░░░░░\033[0m");
     else if (po > 84 && po < 90)
         ft_putstr("\033[1;32m▓▒░░░░░░\033[0m");
-    else if (po < 10 && po > 0)
+    else if (po > 89 && po < 101)
         ft_putstr("\033[1;33m░░░░░░░░\033[0m");
     else
         ft_putstr("\033[1;31m░░░░░░░░\033[0m");
@@ -185,8 +180,6 @@ void    show_power(char *power)
 void    show_station(t_database *data, t_station *station)
 {
     char    *file;
-    char    *cmd;
-    char    *mac;
     char    *tmp;
 
     ft_putstr("╔");
@@ -202,6 +195,7 @@ void    show_station(t_database *data, t_station *station)
     ft_putendl("╗");
     ft_putstr("║   ");
     show_power(station->power);
+    ft_putstr(station->power);
     ft_putstr("    \033[1;37m");
     ft_putstr(station->bssid);
     ft_putstr("\033[0m");
@@ -220,21 +214,18 @@ void    show_station(t_database *data, t_station *station)
     ft_putstr("  chan:");
     ft_putspace(3 - ft_strlen(station->chan));
     ft_putstr(station->chan);
-    mac = ft_strsub(station->bssid, 0, 8);
-    cmd = ft_strmjoin("./Mac_vendor.sh ", mac," > .vendor");
-    system(cmd);
-    file = ft_get_file(".vendor");
-    if (file && ft_strlen(file) > 2)
+    file = vendor_get(data->vendors, station->bssid);
+    if (file)
     {
-        tmp = ft_strsub(file, 0, ft_strlen(file) - 1);
-        ft_putstr("    ");
+        tmp = ft_strdup(file);
+        ft_putstr("   \033[35m");
         ft_putstr(tmp);
+        ft_putstr("\033[0m");
         ft_putspace(146 - ft_strlen(file));
         ft_strdelt(&tmp, &file);
     }
     else
         ft_putspace(149);
-    ft_strdelt(&cmd, &mac);
     ft_putendl("\033[0m ║");
     if (have_clients(data, station->essid, station->bssid) == 0)
     {
@@ -289,23 +280,28 @@ void    show_infos(t_database *data, char *search)
     t_station   *station;
     t_client    *client;
 
-    sort_station_last(data, -1);
     station = data->stations;
     while (station)
     {
-        if (ft_strcchr(station->essid, search) != 0)
+        if (!search)
             show_station(data, station);
-        if (ft_strlen(search) > 7 && ft_strcchr(station->bssid, search) != 0)
-            show_station(data, station);
-        if (ft_strcchr(station->auth, search) != 0)
-            show_station(data, station);
+        else
+        {
+            if (ft_strcchr(station->essid, search) != 0)
+                show_station(data, station);
+            if (ft_strlen(search) > 7 && ft_strcchr(station->bssid, search) != 0)
+                show_station(data, station);
+            if (ft_strcchr(station->auth, search) != 0)
+                show_station(data, station);
+        }
         station = station->next;
     }
     client = data->clients;
     while (client)
     {
-        if (ft_strlen(search) > 7 && ft_strcchr(client->mac, search) != 0)
-            show_infos(data, client->bssid);
+        if (search)
+            if (ft_strlen(search) > 7 && ft_strcchr(client->mac, search) != 0)
+                show_infos(data, client->bssid);
         client = client->next;
     }
 }
@@ -346,7 +342,7 @@ void    show_last(t_database *data, char *search)
 
 }
 
-int     main(int argc, char **argv)
+int     main(void)
 {
     t_database  *database;
 
@@ -354,9 +350,9 @@ int     main(int argc, char **argv)
     clean_database(database);
     //sort_station_power(database, 1);
     //show_database(database);
-    sort_station_bssid(database, 1);
+    sort_station_power(database, 1);
     sort_client_power(database, -1);
-    show_infos(database, "WEP");
+    show_infos(database, NULL);
     /*show_infos(database, "NK");*/
     /*show_last(database, "WPA");*/
     /*display_data(database);*/

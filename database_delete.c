@@ -6,12 +6,13 @@
 /*   By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/17 20:26:08 by ntrancha          #+#    #+#             */
-/*   Updated: 2016/03/17 21:56:50 by ntrancha         ###   ########.fr       */
+/*   Updated: 2016/03/19 00:59:01 by ntrancha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/includes/libft.h"
 #include "parse.h"
+#include "vendor.h"
 
 void        delete_client(t_client *client)
 {
@@ -76,5 +77,6 @@ void        delete_database(t_database *data)
 {
     delete_stations(data);
     delete_clients(data);
+    vendors_free(&(data->vendors));
     ft_memdel((void**)&data);
 }

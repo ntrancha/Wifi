@@ -6,7 +6,7 @@
 #    By: ntrancha <ntrancha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/08 10:45:53 by ntrancha          #+#    #+#              #
-#    Updated: 2016/03/18 12:51:23 by ntrancha         ###   ########.fr        #
+#    Updated: 2016/03/18 13:05:55 by ntrancha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SCRIPT	= 	$(GIT)Script.git
 
 DEPOT	= 	$(GIT)$(PROJECT).git
 
-all: reset binaire $(NAME)
+all: fclean $(NAME)
 
 update:
 	@echo "Update ..."
